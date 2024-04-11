@@ -6,6 +6,7 @@ import TodoItem from './src/components/todoItem/TodoItem';
 import todoStore from './src/store/todoStore';
 import TodoItemMenu from './src/components/todoItemMenu/TodoItemMenu';
 import { observer } from 'mobx-react-lite';
+import TodoEditor from './src/components/todoEditor/TodoEditor';
 
 const App = observer(() => {
   return (
@@ -53,6 +54,7 @@ const App = observer(() => {
         </TouchableOpacity>
       </View>
       <TodoItemMenu />
+      <TodoEditor />
     </View>
   );
 }) 

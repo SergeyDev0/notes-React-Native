@@ -5,6 +5,7 @@ class TodoStore {
   id = 5;
   idItem = null;
   isOpenMenu = false;
+  isOpenEditor = false;
   categories = [{
     id: 1,
     title: "All", 
@@ -89,6 +90,10 @@ class TodoStore {
   closeMenu() {
     this.isOpenMenu = false;
     this.idItem = null;
+  }
+
+  openEditor(id) {
+    this.isOpenEditor = true;
   }
 
   togglePin() {

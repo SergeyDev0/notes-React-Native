@@ -23,7 +23,10 @@ const TodoItemMenu = observer(() => {
           <Image style={{width: 20, height: 20}} source={require("../../assets/icons/pin-w.png")} />
             <Text style={styles.menuItemText}>Pin</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity 
+            style={styles.menuItem}
+            onPress={() => {todoStore.openEditor(todoStore.idItem)}}  
+          >
             <Image style={{width: 20, height: 20}} source={require("../../assets/icons/edit.png")} />
             <Text style={styles.menuItemText}>Edit</Text>
           </TouchableOpacity>

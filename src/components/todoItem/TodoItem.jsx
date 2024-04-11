@@ -7,8 +7,8 @@ const TodoItem = ({ title, text, pin, id }) => {
   return (
     <TouchableOpacity 
       delayLongPress={500} 
-      onPress={() => {}} 
-      onLongPress={()=>{
+      onPress={() => {todoStore.openEditor(id)}} 
+      onLongPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         todoStore.openMenu(id);
       }} 
