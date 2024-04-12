@@ -7,6 +7,7 @@ import todoStore from './src/store/todoStore';
 import TodoItemMenu from './src/components/todoItemMenu/TodoItemMenu';
 import { observer } from 'mobx-react-lite';
 import TodoEditor from './src/components/todoEditor/TodoEditor';
+import TodoAddItem from './src/components/todoAddItem/TodoAddItem';
 
 const App = observer(() => {
   return (
@@ -47,6 +48,9 @@ const App = observer(() => {
           </View>
         </ScrollView>
         <TouchableOpacity 
+          onPress={() => {
+            todoStore.openAddItem();
+          }}
           style={styles.todoAddItem} 
           activeOpacity={0.6}>
           <View style={styles.todoAddItemVertical} />
@@ -55,6 +59,7 @@ const App = observer(() => {
       </View>
       <TodoItemMenu />
       <TodoEditor />
+      <TodoAddItem />
     </View>
   );
 }) 

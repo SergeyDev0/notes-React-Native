@@ -2,8 +2,9 @@ import React from "react"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Haptics from 'expo-haptics';
 import todoStore from "../../store/todoStore";
+import { observer } from "mobx-react-lite";
 
-const TodoItem = ({ title, text, pin, id }) => {
+const TodoItem = observer(({ title, text, pin, id }) => {
   return (
     <TouchableOpacity 
       delayLongPress={500} 
@@ -34,8 +35,8 @@ const TodoItem = ({ title, text, pin, id }) => {
       }
     </TouchableOpacity>
   )
-};
-
+});
+ 
 const styles = StyleSheet.create({
   item: {
     flex: 0,

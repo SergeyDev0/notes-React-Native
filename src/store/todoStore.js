@@ -6,6 +6,7 @@ class TodoStore {
   idItem = null;
   isOpenMenu = false;
   isOpenEditor = false;
+  isOpenAddItem = false;
   categories = [{
     id: 1,
     title: "All", 
@@ -42,7 +43,10 @@ class TodoStore {
     ]
   },
   ];
-  items = [];
+  activeItem = {
+    title: "",
+    text: "",
+  }
 
   constructor() {
     makeAutoObservable(this);
@@ -60,8 +64,8 @@ class TodoStore {
     });
   }
 
-  addItem(activeCategory, title, text) {
-    this.categories[activeCategory].data.push({
+  addItem(title, text) {
+    this.categories[this.activeCategory].data.push({
       id: this.id,
       title: title,
       text: text
@@ -87,13 +91,48 @@ class TodoStore {
     this.idItem = id;
   }
 
+  openAddItem() {
+    this.isOpenAddItem = true;
+  }
+
+  closeAddItem() {
+    this.isOpenAddItem = false;
+  }
+
   closeMenu() {
     this.isOpenMenu = false;
-    this.idItem = null;
   }
 
   openEditor(id) {
     this.isOpenEditor = true;
+    const item = this.categories.flatMap(category => category.data).find(item => item.id === id);
+    if (item) {
+      this.activeItem.title = item.title;
+      this.activeItem.text = item.text;
+    }
+    this.idItem = id;
+    this.closeMenu();
+  }
+
+  closeEditor() {
+    this.isOpenEditor = false;
+    this.idItem = null;
+    this.activeItem.title = "";
+    this.activeItem.text = "";
+  }
+
+  confirmEditor(newTitle, newText) {
+    this.categories.forEach(category => {
+      const itemToUpdate = category.data.find(item => item.id === this.idItem);
+      if (itemToUpdate) {
+        itemToUpdate.title = newTitle;
+        itemToUpdate.text = newText;
+      }
+    });
+    console.log(this.idItem)
+    this.isOpenEditor = false;
+    this.activeItem.title = "";
+    this.activeItem.text = "";
   }
 
   togglePin() {

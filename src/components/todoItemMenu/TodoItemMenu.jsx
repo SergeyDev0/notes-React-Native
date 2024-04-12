@@ -25,7 +25,9 @@ const TodoItemMenu = observer(() => {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.menuItem}
-            onPress={() => {todoStore.openEditor(todoStore.idItem)}}  
+            onPress={() => {
+              todoStore.openEditor(todoStore.idItem)
+            }}  
           >
             <Image style={{width: 20, height: 20}} source={require("../../assets/icons/edit.png")} />
             <Text style={styles.menuItemText}>Edit</Text>

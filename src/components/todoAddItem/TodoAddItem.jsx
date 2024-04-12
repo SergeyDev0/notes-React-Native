@@ -3,14 +3,9 @@ import { View, StyleSheet, TouchableOpacity, Image, TextInput, Keyboard } from '
 import todoStore from "../../store/todoStore";
 import { observer } from "mobx-react-lite";
 
-const TodoEditor = observer(() => {
-  const [title, setTitle] = React.useState(todoStore.activeItem.title || '');
-  const [text, setText] = React.useState(todoStore.activeItem.text || '');
-
-  React.useEffect(() => {
-    setTitle(todoStore.activeItem.title || '');
-    setText(todoStore.activeItem.text || '');
-  }, [todoStore.activeItem.title, todoStore.activeItem.text]);
+const TodoAddItem = observer(() => {
+  const [title, setTitle] = React.useState('');
+  const [text, setText] = React.useState('');
 
   function getTitle(text) {
     setTitle(text);
@@ -20,13 +15,19 @@ const TodoEditor = observer(() => {
     setText(text);
   }
 
+  function clearInputs() {
+    setTitle("");
+    setText("");
+  }
+
   return (
-    <View style={todoStore.isOpenEditor ? [styles.confirmPanelWrapper, styles.active] : styles.confirmPanelWrapper}>
+    <View style={todoStore.isOpenAddItem ? [styles.confirmPanelWrapper, styles.active] : styles.confirmPanelWrapper}>
       <View style={styles.confirmPanel}>
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => {
-            todoStore.closeEditor();
+            todoStore.closeAddItem();
+            clearInputs();
             Keyboard.dismiss();
           }}
         >
@@ -38,8 +39,12 @@ const TodoEditor = observer(() => {
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => {
-            todoStore.confirmEditor(title, text);
-            Keyboard.dismiss();
+            if(title !== "" && text !== "") {
+              todoStore.addItem(title, text);
+              todoStore.closeAddItem();
+              clearInputs();
+              Keyboard.dismiss();
+            }
           }}
         >
           <Image 
@@ -113,4 +118,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TodoEditor;
+export default TodoAddItem;
