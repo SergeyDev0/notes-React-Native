@@ -8,12 +8,12 @@ class TodoStore {
   isOpenEditor = false;
   isOpenAddItem = false;
   categories = [{
-    id: 1,
+    id: 0,
     title: "All", 
     data: [],
   },
   {
-    id: 2,
+    id: 1,
     title: "dafas",
     data: [
       {
@@ -31,7 +31,7 @@ class TodoStore {
     ]
   },
   {
-    id: 3,
+    id: 2,
     title: "asfsff",
     data: [
       {
@@ -65,18 +65,26 @@ class TodoStore {
   }
 
   addItem(title, text) {
-    this.categories[this.activeCategory].data.push({
-      id: this.id,
-      title: title,
-      text: text
-    });
+    if(this.activeCategory === 0) {
+      this.categories[0].data.push({
+        id: this.id,
+        title: title,
+        text: text
+      });
+    } else {
+      this.categories[this.activeCategory].data.push({
+        id: this.id,
+        title: title,
+        text: text
+      });
+      let data = [];
+      this.categories.forEach(item => {
+        data = data.concat(item.data);
+      });
+      this.categories[0].data = data;
+    }
+    
     this.id++; // Поменять потом на 1
-    let data = [];
-    this.categories.forEach(item => {
-      data = data.concat(item.data);
-    });
-    this.categories[0].data = data;
-    this.sortCategory();
   }
 
   deleteItem() {
